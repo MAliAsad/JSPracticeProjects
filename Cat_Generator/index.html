@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+</head>
+<style>
+    .container-2{
+        border: 1px solid black;
+        width: 75%;
+        margin: 0 auto;
+        text-align: center;
+    }
+    .container-2 button{
+        margin: 10px;
+    }
+    .flex-box-container-1{
+        display: flex;
+        border: 1px solid black;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+    .flex-box-container-1 img{
+        border: 1px solid black;
+        box-shadow: 0px 10px 50px black;
+        margin: 10px;
+    }
+
+</style>
+<body>
+    <div class="container-2">
+            <h2>Cat Generator</h2>
+            <button id="cat-gen" onclick="genCat()" class="btn btn-success">Generate Cat</button>
+        <div id="fbc" class="flex-box-container-1">
+        </div>
+    </div>
+
+    <script>
+        function genCat(){
+            var image=document.createElement("img");
+            var div=document.getElementById("fbc");
+            image.setAttribute("src","cat.gif");
+            div.appendChild(image);
+        }
+    </script>
+
+</body>
+</html>

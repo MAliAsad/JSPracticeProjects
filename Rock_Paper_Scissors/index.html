@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+</head>
+<style>
+    .container{
+        border: 1px solid black;
+        text-align: center;
+        margin-top: 10px;
+        padding-bottom: 10px;
+    }
+    .flex-box{
+        display: flex;
+        border: 1px solid black;
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+        justify-content: space-around;
+        padding: 10px;
+    }
+    .flex-box img:hover{
+        box-shadow: 0px 10px 50px blue;
+    }
+
+</style>
+<body>
+    <div class="container">
+        <h2>Rock, Paper, Scissors</h2>
+        <div class="flex-box" id="flex-box">
+            <img id="rock" src="rock.jpg" alt="" height="150" weidth="150" onclick="rpsGame(this)" >
+            <img id="paper" src="paper.jpg" alt="" height="150" weidth="150" onclick="rpsGame(this)" >
+            <img id="scissors" src="scissors.jpg" alt="" height="150" weidth="150" onclick="rpsGame(this)" >
+        </div>
+        <button class="btn btn-success" onclick="window.location.reload()">Reset</button>
+    </div>
+    <script>
+
+        function rpsGame(yourChoice){
+            var humanChoice, botChoice;
+            humanChoice=yourChoice.id;
+            botChoice=["rock","paper","scissors"][Math.floor(Math.random()*3)];
+            result=decideWinner(humanChoice,botChoice);
+            message=finalMessage(result);
+            rpsFrontEnd(humanChoice,botChoice,message);
+        }
+        function decideWinner(humanChoice,botChoice){
+            var rpsDB={
+                "rock": {"scissors":1,"rock":0.5,"paper":0},
+                "paper": {"rock":1,"paper":0.5,"scissors":0},
+                "scissors": {"paper":1,"scissors":0.5,"rock":0}
+            }
+            var yourScore=rpsDB[humanChoice][botChoice];
+            var computerScore=rpsDB[botChoice][humanChoice];
+            return [yourScore,computerScore];
+        }
+        function finalMessage([yourScore,computerScore]){
+            if(yourScore==0){
+                return {"message":"You lost! ","color":"red"};
+            }else if(yourScore==0.5){
+                return {"message":"You tied!","color":"yellow"};
+            }else{ 
+                return {"message":"You won!","color":"green"};
+            }
+        }
+        function rpsFrontEnd(humanChoice,botChoice,message){
+            var imgsDB={
+                "rock":document.getElementById("rock").src,
+                "paper":document.getElementById("paper").src,
+                "scissors":document.getElementById("scissors").src
+            }
+            document.getElementById("rock").remove();
+            document.getElementById("paper").remove();
+            document.getElementById("scissors").remove();
+            var humanDiv=document.createElement("div");
+            var botDiv=document.createElement("div");
+            var msgDiv=document.createElement("div");
+            humanDiv.innerHTML="<img src='"+imgsDB[humanChoice]+"' height=150 weidth=150 style='box-shadow: 0px 10px 50px blue' >";
+            botDiv.innerHTML="<img src='"+imgsDB[botChoice]+"' height=150 weidth=150 style='box-shadow: 0px 10px 50px red'>";
+            msgDiv.innerHTML="<h1 style='color:"+message["color"] +";'>"+message["message"]+"</h1>";
+            document.getElementById("flex-box").appendChild(humanDiv);
+            document.getElementById("flex-box").appendChild(msgDiv);
+            document.getElementById("flex-box").appendChild(botDiv);
+
+        }
+
+    </script>
+</body>
+</html>
