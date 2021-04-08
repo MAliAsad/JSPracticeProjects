@@ -1,2 +1,2 @@
 # JSPracticeProjects
-These are the projects I made while I was learning JS.
+These are some projects I made while I was learning JS.
